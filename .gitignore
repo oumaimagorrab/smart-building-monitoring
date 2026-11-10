@@ -1,0 +1,30 @@
+# Données temporaires
+data/
+*.log
+*.tmp
+
+# Variables d'environnement et secrets
+.env
+.env.*
+
+# Données Elasticsearch
+elasticsearch-data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node.js
+node_modules/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# Système
+.DS_Store
+Thumbs.db
