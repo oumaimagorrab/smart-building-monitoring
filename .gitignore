@@ -28,3 +28,8 @@ build/
 # Système
 .DS_Store
 Thumbs.db
+
+# Backend Python - données locales
+backend/uploads/
+backend/test_files/
+backend/__pycache__/
