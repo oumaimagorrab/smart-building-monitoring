@@ -1,11 +1,16 @@
-from routes.upload_routes import upload_bp
 from flask import Flask, jsonify
 from flask_cors import CORS
+
+from routes.upload_routes import upload_bp
+from routes.log_routes import log_bp
 
 app = Flask(__name__)
 
 CORS(app)
+
 app.register_blueprint(upload_bp)
+app.register_blueprint(log_bp)
+
 
 @app.route("/", methods=["GET"])
 def home():
@@ -13,6 +18,7 @@ def home():
         "message": "Smart Building Monitoring API",
         "status": "running"
     })
+
 
 @app.route("/health", methods=["GET"])
 def health():

@@ -5,6 +5,8 @@ from werkzeug.utils import secure_filename
 
 from services.file_service import read_file
 from services.logstash_service import send_log
+from services.mongodb_service import save_upload_history, get_upload_history
+from utils.validators import validate_logs
 
 upload_bp = Blueprint("upload", __name__)
 
@@ -44,13 +46,10 @@ def upload_file():
 
         logs = read_file(file_path)
 
-        if not logs:
-            return jsonify({
-                "error": "Le fichier ne contient aucun log"
-            }), 400
+        is_valid, error = validate_logs(logs)
 
-        if not all(isinstance(log, dict) for log in logs):
-            return jsonify({"error": "Format des données invalide"}), 400
+        if not is_valid:
+            return jsonify({"error": error}), 400
 
         for log in logs:
             if not send_log(log):
@@ -58,11 +57,32 @@ def upload_file():
                     "error": "Erreur lors de l'envoi des logs à Logstash"
                 }), 502
 
+        # Enregistrer l'import dans MongoDB
+        upload_id = save_upload_history(
+            filename=filename,
+            logs_count=len(logs),
+            status="success"
+        )
+
+        if upload_id is None:
+            return jsonify({
+                "error": "Les logs ont été envoyés, mais l'historique n'a pas été enregistré"
+            }), 500
+
         return jsonify({
             "message": "Fichier importé avec succès",
             "filename": filename,
-            "logs_count": len(logs)
+            "logs_count": len(logs),
+            "upload_id": upload_id
         }), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+@upload_bp.route("/api/uploads", methods=["GET"])
+def get_uploads():
+    history = get_upload_history()
+
+    return jsonify({
+        "count": len(history),
+        "uploads": history
+    }), 200
