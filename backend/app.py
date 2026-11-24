@@ -1,5 +1,7 @@
-from flask import Flask, jsonify
+
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
+import os
 
 from routes.upload_routes import upload_bp
 from routes.log_routes import log_bp
@@ -28,5 +30,22 @@ def health():
     })
 
 
+@app.route("/docs", methods=["GET"])
+def swagger_ui():
+    return send_from_directory(
+        os.path.join(app.root_path, "docs"),
+        "index.html"
+    )
+
+
+@app.route("/openapi.yaml", methods=["GET"])
+def openapi_spec():
+    return send_from_directory(
+        os.path.join(app.root_path, "docs"),
+        "openapi.yaml"
+    )
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+

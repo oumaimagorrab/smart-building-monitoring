@@ -1,0 +1,276 @@
+
+openapi: 3.0.3
+
+info:
+  title: Smart Building Monitoring API
+  description: API REST pour l'importation et la consultation des logs IoT d'un bâtiment intelligent.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000
+    description: Serveur local Flask
+
+tags:
+  - name: General
+    description: Vérification du fonctionnement du backend
+  - name: Uploads
+    description: Importation et historique des fichiers
+  - name: Logs
+    description: Consultation et filtrage des logs IoT
+
+paths:
+
+  /:
+    get:
+      tags:
+        - General
+      summary: Vérifier le fonctionnement de l'API
+      responses:
+        '200':
+          description: API opérationnelle
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Smart Building Monitoring API
+                  status:
+                    type: string
+                    example: running
+
+  /health:
+    get:
+      tags:
+        - General
+      summary: Vérifier l'état du backend
+      responses:
+        '200':
+          description: Backend opérationnel
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  service:
+                    type: string
+                    example: backend
+
+  /api/upload:
+    post:
+      tags:
+        - Uploads
+      summary: Importer un fichier de logs IoT
+      description: Accepte actuellement les fichiers CSV et JSON. Les logs sont validés puis envoyés à Logstash.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Fichier CSV ou JSON à importer
+      responses:
+        '200':
+          description: Fichier importé avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Fichier importé avec succès
+                  filename:
+                    type: string
+                    example: building_logs.csv
+                  logs_count:
+                    type: integer
+                    example: 100
+                  upload_id:
+                    type: string
+                    example: 674a123456789abcdef12345
+        '400':
+          description: Fichier absent, format incorrect ou logs invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erreur serveur ou enregistrement de l'historique
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '502':
+          description: Erreur lors de l'envoi des logs à Logstash
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/uploads:
+    get:
+      tags:
+        - Uploads
+      summary: Consulter l'historique des imports
+      responses:
+        '200':
+          description: Liste des imports
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 2
+                  uploads:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UploadHistory'
+
+  /api/logs:
+    get:
+      tags:
+        - Logs
+      summary: Consulter les logs IoT
+      description: Retourne les logs depuis Elasticsearch, triés du plus récent au plus ancien.
+      parameters:
+        - name: sensor_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtrer par identifiant du capteur
+        - name: zone
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtrer par zone du bâtiment
+        - name: log_type
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filtrer par type de log
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+          description: Nombre maximal de logs retournés
+      responses:
+        '200':
+          description: Résultat de la recherche
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    example: 150
+                  logs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IoTLog'
+        '400':
+          description: Limite invalide
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erreur serveur ou Elasticsearch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+
+    IoTLog:
+      type: object
+      required:
+        - sensor_id
+        - zone
+        - log_type
+      properties:
+        id:
+          type: string
+          description: Identifiant du document Elasticsearch
+          example: abc123
+        sensor_id:
+          type: string
+          example: sensor-01
+        zone:
+          type: string
+          example: salle-101
+        log_type:
+          type: string
+          example: temperature
+        temperature:
+          type: number
+          example: 24.5
+        humidity:
+          type: number
+          example: 55.2
+        luminosity:
+          type: number
+          example: 450
+        co2:
+          type: number
+          example: 620
+        energy:
+          type: number
+          example: 12.8
+        '@timestamp':
+          type: string
+          format: date-time
+          example: '2026-11-24T10:30:00Z'
+      additionalProperties: true
+
+    UploadHistory:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 674a123456789abcdef12345
+        filename:
+          type: string
+          example: building_logs.csv
+        date:
+          type: string
+          format: date-time
+        logs_count:
+          type: integer
+          example: 100
+        status:
+          type: string
+          example: success
+        error:
+          type: string
+          nullable: true
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Aucun fichier envoyé
+
