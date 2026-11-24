@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Building Monitoring | Consultation</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>Smart<span>Building</span></h2>
+
+        <nav>
+            <a href="index.html">📤 Importation</a>
+            <a href="#">📊 Dashboard</a>
+            <a href="history.html">📋 Historique</a>
+            <a href="logs.html" class="active">🔍 Recherche des logs</a>
+            <a href="#">⚙️ Paramètres</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Monitoring IoT
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Consultation des logs</h1>
+                <p>Consultez et recherchez les données de vos capteurs intelligents.</p>
+            </div>
+
+            <div class="user-info">
+                <span>Administrateur</span>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <section class="welcome">
+            <h2>Recherche des logs</h2>
+            <p>
+                Consultez les données enregistrées dans Elasticsearch
+                et filtrez-les selon vos besoins.
+            </p>
+        </section>
+
+        <section class="upload-card">
+
+            <div class="card-header">
+                <div>
+                    <h3>Filtres de recherche</h3>
+                    <p>Recherchez les logs par capteur, zone ou type.</p>
+                </div>
+                <span class="file-icon">🔍</span>
+            </div>
+
+            <div class="filters-container">
+                <input type="text" id="sensorFilter"
+                       placeholder="Rechercher par capteur">
+
+                <input type="text" id="zoneFilter"
+                       placeholder="Rechercher par zone">
+
+                <input type="text" id="typeFilter"
+                       placeholder="Type de log">
+
+                <button id="searchBtn">Rechercher</button>
+                <button id="resetBtn">Réinitialiser</button>
+            </div>
+
+        </section>
+
+        <section class="upload-card">
+
+            <div class="card-header">
+                <div>
+                    <h3>Liste des logs</h3>
+                    <p>Logs récupérés depuis Elasticsearch.</p>
+                </div>
+                <span class="file-icon">📋</span>
+            </div>
+
+            <p id="message"></p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Capteur</th>
+                            <th>Zone</th>
+                            <th>Type</th>
+                            <th>Température</th>
+                            <th>Humidité</th>
+                            <th>CO2</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="logsTable">
+                        <tr>
+                            <td colspan="7">Chargement des logs...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<script src="js/logs.js"></script>
+
+</body>
+</html>
+  

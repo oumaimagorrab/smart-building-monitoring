@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Building Monitoring | Historique</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>Smart<span>Building</span></h2>
+
+        <nav>
+            <a href="index.html">📤 Importation</a>
+            <a href="#">📊 Dashboard</a>
+            <a href="history.html" class="active">📋 Historique</a>
+            <a href="logs.html">🔍 Recherche des logs</a>
+            <a href="#">⚙️ Paramètres</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            Monitoring IoT
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Historique des importations</h1>
+                <p>Consultez les fichiers importés dans votre système.</p>
+            </div>
+
+            <div class="user-info">
+                <span>Administrateur</span>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <section class="welcome">
+            <h2>Suivi des importations</h2>
+            <p>Retrouvez les détails de vos précédentes importations.</p>
+        </section>
+
+        <section class="upload-card">
+
+            <div class="card-header">
+                <div>
+                    <h3>Historique des fichiers</h3>
+                    <p>Liste des importations enregistrées dans MongoDB.</p>
+                </div>
+                <span class="file-icon">📋</span>
+            </div>
+
+            <p id="historyMessage">Chargement de l'historique...</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom du fichier</th>
+                            <th>Date d'importation</th>
+                            <th>Nombre de logs</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="historyTable">
+                        <tr>
+                            <td colspan="4">Chargement...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<script src="js/history.js"></script>
+
+</body>
+</html>
+
