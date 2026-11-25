@@ -1,0 +1,1344 @@
+/* =========================================
+   1. RESET ET STYLES COMMUNS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f6f8fc;
+    color: #1e293b;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Toutes les icônes SVG héritent de la couleur du texte */
+svg {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   2. SIDEBAR COMMUNE
+========================================= */
+
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: #172b60;
+    color: white;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    font-size: 21px;
+    margin-bottom: 35px;
+}
+
+.sidebar h2 span {
+    color: #a9c5ff;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar nav a {
+    color: #dce6ff;
+    text-decoration: none;
+    padding: 13px 12px;
+    border-radius: 7px;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #2853c7;
+    color: white;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    color: #b9c9e9;
+    font-size: 11px;
+}
+
+
+/* =========================================
+   3. CONTENU PRINCIPAL COMMUN
+========================================= */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    background: #2563eb;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+/* =========================================
+   4. RECHERCHE DES LOGS
+========================================= */
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.filters-container input,
+.filters-container select,
+#sensorFilter,
+#zoneFilter,
+#typeFilter {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.filters-container input:focus,
+.filters-container select:focus,
+#sensorFilter:focus,
+#zoneFilter:focus,
+#typeFilter:focus {
+    border-color: #2563eb;
+}
+
+#searchBtn,
+#resetBtn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#searchBtn {
+    background: #2563eb;
+    color: white;
+}
+
+#searchBtn:hover {
+    background: #1d4ed8;
+}
+
+#resetBtn {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+#resetBtn:hover {
+    background: #cbd5e1;
+}
+
+
+/* =========================================
+   5. TABLEAUX : LOGS ET HISTORIQUE
+========================================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.table-container table,
+main table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+.table-container th,
+main th {
+    background: #1e3a8a;
+    color: white;
+    padding: 15px 12px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.table-container td,
+main td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    font-size: 13px;
+}
+
+.table-container tbody tr:hover,
+main tbody tr:hover {
+    background: #eff6ff;
+}
+
+.table-container table {
+    min-width: 750px;
+}
+
+#message,
+#historyMessage {
+    color: #2563eb;
+    font-weight: 600;
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   6. STATUTS DE L'HISTORIQUE
+========================================= */
+
+.status-success {
+    color: #15803d;
+    background: #dcfce7;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-error {
+    color: #b91c1c;
+    background: #fee2e2;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   7. PAGE IMPORTATION - BASE
+========================================= */
+
+.import-page {
+    background: #f6f8fc;
+    color: #172b55;
+    font-size: 13px;
+}
+
+.import-page .container {
+    min-height: 100vh;
+}
+
+.import-page .sidebar {
+    width: 196px;
+    min-width: 196px;
+    padding: 25px 14px 15px;
+}
+
+.import-page .main-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: #f7f9fc;
+}
+
+
+/* =========================================
+   8. LOGO ET CAMPUS
+========================================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 8px 30px;
+}
+
+.brand-icon {
+    font-size: 25px;
+    color: #dce8ff;
+}
+
+.brand h2 {
+    font-size: 18px;
+    margin: 0;
+    color: white;
+}
+
+.brand h2 span {
+    color: #d9e5ff;
+}
+
+.brand small {
+    display: block;
+    font-size: 7px;
+    letter-spacing: 2px;
+    margin-top: 5px;
+    color: #aabce9;
+}
+
+.campus-selector {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid #34477c;
+    border-radius: 7px;
+    padding: 12px 9px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.campus-selector:hover {
+    border-color: #4a5f9e;
+}
+
+.campus-icon {
+    background: #344a83;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.campus-selector strong,
+.campus-selector small {
+    display: block;
+    font-size: 10px;
+}
+
+.campus-selector small {
+    color: #b9c8e8;
+    margin-top: 4px;
+    font-size: 9px;
+}
+
+.campus-arrow {
+    margin-left: auto;
+    font-size: 14px;
+    color: #b9c8e8;
+}
+
+.sidebar-label {
+    color: #aabce9;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin: 0 8px 12px;
+}
+
+.import-page .sidebar nav {
+    gap: 7px;
+}
+
+.import-page .sidebar nav a {
+    padding: 12px 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+}
+
+.import-page .sidebar nav a .nav-icon {
+    font-size: 16px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.import-page .sidebar nav a.active::after {
+    content: "●";
+    margin-left: auto;
+    font-size: 8px;
+    color: #dce6ff;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.system-status {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    background: #23396e;
+    border-radius: 6px;
+    padding: 13px 9px;
+    margin-bottom: 15px;
+}
+
+/* Point vert de statut (réutilisé partout) */
+.online-dot,
+.topbar-right i,
+.platform-badge i,
+.monitoring-badge i,
+.page-footer i {
+    width: 6px;
+    height: 6px;
+    background: #16b978;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.system-status strong,
+.system-status small {
+    display: block;
+    font-size: 9px;
+}
+
+.system-status small {
+    color: #b7c7e8;
+    margin-top: 5px;
+    font-size: 8px;
+}
+
+.import-page .sidebar-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px;
+}
+
+.footer-iot {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 10px;
+    color: #b9c9e9;
+}
+
+.footer-iot svg {
+    font-size: 14px;
+}
+
+.footer-expand {
+    color: #b9c9e9;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   9. BARRE SUPERIEURE
+========================================= */
+
+.import-page .topbar {
+    height: 61px;
+    min-height: 61px;
+    background: white;
+    border-bottom: 1px solid #e5eaf2;
+    padding: 0 28px;
+    flex-shrink: 0;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #8390a8;
+    font-size: 10px;
+}
+
+.breadcrumb-icon {
+    font-size: 15px;
+    color: #8390a8;
+    display: inline-flex;
+}
+
+.breadcrumb-sep {
+    color: #c3ccdb;
+}
+
+.breadcrumb strong {
+    color: #1d3264;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.demo-status {
+    font-size: 9px;
+    color: #71809a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.notification-icon {
+    font-size: 17px;
+    color: #344b78;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background: #edf2ff;
+    color: #2454c5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.user-details strong,
+.user-details small {
+    display: block;
+    font-size: 9px;
+}
+
+.user-details small {
+    color: #8390a8;
+    margin-top: 4px;
+}
+
+
+/* =========================================
+   10. TITRE ET CONTENU DE LA PAGE
+========================================= */
+
+.page-content {
+    width: min(1200px, calc(100% - 60px));
+    margin: 32px auto 22px;
+    flex: 1;
+}
+
+.page-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.eyebrow {
+    color: #2854cb;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+.page-heading h1 {
+    font-size: 25px;
+    color: #142956;
+    margin: 9px 0 6px;
+}
+
+.page-heading p {
+    color: #77859e;
+    font-size: 11px;
+}
+
+.platform-badge {
+    border: 1px solid #e0e7f0;
+    border-radius: 5px;
+    background: white;
+    padding: 9px 12px;
+    font-size: 9px;
+    color: #66758e;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   11. DISPOSITION IMPORTATION
+========================================= */
+
+.import-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 244px;
+    gap: 19px;
+    align-items: start;
+}
+
+.import-left {
+    min-width: 0;
+}
+
+.import-right {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+/* =========================================
+   12. CARTE D'IMPORTATION
+========================================= */
+
+.import-page .upload-card {
+    background: white;
+    border: 1px solid #e0e6ef;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(20, 40, 80, 0.025);
+}
+
+.import-page .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.import-page .card-header h3 {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #172d59;
+}
+
+.import-page .card-header p {
+    color: #8491a7;
+    font-size: 10px;
+}
+
+.format-badge {
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 6px 9px;
+    font-size: 9px;
+    color: #66758d;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   13. ZONE DE DEPOT
+========================================= */
+
+.import-page .drop-zone {
+    min-height: 235px;
+    border: 1px dashed #9ebcff;
+    border-radius: 7px;
+    background: #fcfcfe;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    padding: 20px;
+    transition: 0.2s;
+}
+
+.import-page .drop-zone:hover,
+.import-page .drop-zone.drag-over {
+    background: #f2f6ff;
+    border-color: #3569e9;
+}
+
+.upload-icon {
+    width: 49px;
+    height: 49px;
+    border: 1px solid #e0e7f2;
+    background: white;
+    border-radius: 12px;
+    color: #2864e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    position: relative;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 5px #e8edf7;
+}
+
+.import-page .drop-zone h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #1b3265;
+}
+
+.import-page .drop-zone p {
+    font-size: 10px;
+    color: #8491a7;
+    margin-bottom: 17px;
+}
+
+.browse-btn {
+    border: 1px solid #dce3ed;
+    background: white;
+    border-radius: 6px;
+    padding: 9px 15px;
+    font-size: 10px;
+    color: #1c3260;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(20, 40, 80, 0.07);
+    display: inline-flex;
+    align-items: center;
+}
+
+.browse-btn:hover {
+    background: #edf3ff;
+}
+
+.browse-btn span {
+    margin-right: 6px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.accepted-formats {
+    color: #8995a9;
+    font-size: 9px;
+    margin-top: 14px;
+}
+
+.accepted-formats span {
+    display: inline-block;
+    border: 1px solid #e1e7ef;
+    border-radius: 3px;
+    padding: 3px 6px;
+    margin-left: 5px;
+    color: #53627b;
+    background: white;
+}
+
+
+/* =========================================
+   14. FICHIER SELECTIONNE
+========================================= */
+
+.import-page .file-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f5f8ff;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+}
+
+.file-info-icon {
+    font-size: 20px;
+    color: #2864e9;
+    display: inline-flex;
+}
+
+.import-page .file-info div {
+    flex: 1;
+    min-width: 0;
+}
+
+.import-page .file-info strong,
+.import-page .file-info small {
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+.import-page .file-info strong {
+    font-size: 11px;
+    color: #1b3265;
+}
+
+.import-page .file-info small {
+    margin-top: 4px;
+    color: #8793a7;
+    font-size: 9px;
+}
+
+.import-page .file-info button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: #dc4e4e;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px;
+}
+
+
+/* =========================================
+   15. BOUTON D'IMPORTATION ET RESULTAT
+========================================= */
+
+.import-page .upload-actions {
+    border-top: 1px solid #e8edf3;
+    margin-top: 19px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.import-page .upload-actions p {
+    font-size: 9px;
+    color: #8290a5;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.shield-icon {
+    font-size: 14px;
+    color: #8a97ad;
+    display: inline-flex;
+}
+
+.import-page .upload-actions button {
+    border: 0;
+    border-radius: 5px;
+    background: #2853c7;
+    color: white;
+    padding: 10px 15px;
+    font-size: 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.import-page .upload-actions button span {
+    margin-right: 7px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.import-page .upload-actions button:disabled {
+    background: #8da1df;
+    cursor: not-allowed;
+}
+
+.import-page .upload-actions button:not(:disabled):hover {
+    background: #193f9e;
+}
+
+.import-page .result-message {
+    margin-top: 12px;
+    padding: 11px;
+    border-radius: 5px;
+    font-size: 11px;
+}
+
+.import-page .result-message.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.import-page .result-message.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* =========================================
+   16. CARTES CSV, JSON ET VALIDATION
+========================================= */
+
+.import-page .info-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+    margin-top: 18px;
+}
+
+.import-page .info-card {
+    background: white;
+    border: 1px solid #e0e6ef;
+    border-radius: 7px;
+    padding: 15px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    min-width: 0;
+    box-shadow: 0 2px 5px rgba(20, 40, 80, 0.025);
+}
+
+.info-icon {
+    width: 33px;
+    height: 33px;
+    min-width: 33px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.csv-icon {
+    background: #e4f8ed;
+    color: #16a56a;
+}
+
+.json-icon {
+    background: #eaf0ff;
+    color: #3265e8;
+}
+
+.validation-icon {
+    background: #f9edf5;
+    color: #a34bd5;
+}
+
+.import-page .info-card h4 {
+    font-size: 10px;
+    margin: 3px 0 8px;
+    color: #193263;
+}
+
+.import-page .info-card p {
+    font-size: 9px;
+    line-height: 1.6;
+    color: #8290a5;
+    margin-bottom: 8px;
+}
+
+.import-page .info-card small {
+    color: #3565ce;
+    font-size: 8px;
+}
+
+
+/* =========================================
+   17. CARTE DU BATIMENT
+========================================= */
+
+.building-card,
+.tips-card {
+    background: white;
+    border: 1px solid #e0e6ef;
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(20, 40, 80, 0.025);
+}
+
+/* Photo du bâtiment (placer le fichier dans images/building.jpg) */
+.building-photo {
+    height: 125px;
+    background: linear-gradient(150deg, #8cc8f1, #d9efff 65%, #85b8dd);
+}
+
+.building-photo img {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    display: block;
+}
+
+.building-content {
+    padding: 15px;
+}
+
+.building-content .eyebrow {
+    font-size: 8px;
+}
+
+.building-content h3 {
+    font-size: 13px;
+    margin: 8px 0;
+    color: #172d59;
+}
+
+.building-content p {
+    font-size: 9px;
+    color: #8793a7;
+    margin-bottom: 13px;
+}
+
+.monitoring-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: #e6f8ef;
+    color: #15935d;
+    font-size: 9px;
+}
+
+.building-stats {
+    display: flex;
+    border-top: 1px solid #e6ebf2;
+    margin-top: 12px;
+    padding-top: 12px;
+}
+
+.building-stats > div {
+    flex: 1;
+}
+
+/* Séparateur vertical entre les deux statistiques */
+.building-stats > div + div {
+    border-left: 1px solid #e6ebf2;
+    padding-left: 18px;
+}
+
+.building-stats strong,
+.building-stats small {
+    display: block;
+}
+
+.building-stats strong {
+    font-size: 17px;
+    color: #172d59;
+}
+
+.building-stats small {
+    font-size: 8px;
+    color: #8793a7;
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   18. BONNES PRATIQUES
+========================================= */
+
+.tips-card {
+    padding: 15px;
+}
+
+.tips-card h3 {
+    font-size: 11px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    color: #193263;
+}
+
+.tips-icon {
+    font-size: 16px;
+    color: #344b78;
+    margin-right: 7px;
+    display: inline-flex;
+}
+
+.tips-card ul {
+    list-style: none;
+}
+
+.tips-card li {
+    display: flex;
+    gap: 8px;
+    color: #7b899f;
+    font-size: 9px;
+    line-height: 1.6;
+    margin-bottom: 11px;
+}
+
+.tips-card li:last-child {
+    margin-bottom: 0;
+}
+
+.check-icon {
+    color: #16b978;
+    font-size: 12px;
+    margin-top: 1px;
+    display: inline-flex;
+    align-items: flex-start;
+}
+
+
+/* =========================================
+   19. BANDEAU D'AIDE
+========================================= */
+
+.help-banner {
+    margin-top: 18px;
+    background: #eaf0ff;
+    border: 1px solid #cbd9ff;
+    border-radius: 7px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.help-icon {
+    color: #2855c9;
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.help-banner strong {
+    font-size: 10px;
+    color: #23458e;
+}
+
+.help-banner p {
+    font-size: 9px;
+    color: #7182a5;
+    margin-top: 5px;
+}
+
+.help-banner a {
+    margin-left: auto;
+    color: #2853c7;
+    text-decoration: none;
+    font-size: 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.help-banner a:hover {
+    text-decoration: underline;
+}
+
+.help-banner a span {
+    font-size: 12px;
+    display: inline-flex;
+}
+
+
+/* =========================================
+   20. PIED DE PAGE
+========================================= */
+
+.import-page .page-footer {
+    min-height: 42px;
+    background: white;
+    border-top: 1px solid #e5eaf2;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: #8591a5;
+    font-size: 9px;
+    flex-shrink: 0;
+}
+
+.footer-right {
+    display: inline-flex;
+    align-items: center;
+}
+
+.page-footer i {
+    margin-right: 5px;
+}
+
+
+/* =========================================
+   21. RESPONSIVE - TABLETTE
+========================================= */
+
+@media (max-width: 1050px) {
+    .import-layout {
+        grid-template-columns: minmax(0, 1fr) 220px;
+    }
+
+    .import-page .info-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .page-content {
+        width: calc(100% - 40px);
+    }
+}
+
+
+/* =========================================
+   22. RESPONSIVE - PETITS ECRANS
+========================================= */
+
+@media (max-width: 760px) {
+    .import-page .sidebar {
+        width: 65px;
+        min-width: 65px;
+        padding: 15px 7px;
+    }
+
+    .brand {
+        margin: 0 auto 25px;
+    }
+
+    .brand > div:last-child,
+    .campus-selector > div:not(.campus-icon),
+    .campus-arrow,
+    .sidebar-label,
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .campus-selector {
+        justify-content: center;
+        padding: 8px 3px;
+        border: none;
+        background: transparent;
+    }
+
+    .import-page .sidebar nav a {
+        justify-content: center;
+        font-size: 0;
+        padding: 12px 5px;
+    }
+
+    .import-page .sidebar nav a .nav-icon {
+        font-size: 18px;
+        width: auto;
+    }
+
+    .import-page .topbar {
+        padding: 0 12px;
+    }
+
+    .user-details,
+    .demo-status {
+        display: none;
+    }
+
+    .page-content {
+        width: calc(100% - 25px);
+        margin-top: 22px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .import-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .import-right {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .import-page .info-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .help-banner {
+        flex-wrap: wrap;
+    }
+
+    .help-banner a {
+        margin-left: 0;
+    }
+
+    .import-page .page-footer {
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+}
+
+
+/* =========================================
+   23. RESPONSIVE - TELEPHONE
+========================================= */
+
+@media (max-width: 550px) {
+    .main-content {
+        padding: 15px;
+    }
+
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filters-container input,
+    .filters-container select,
+    #sensorFilter,
+    #zoneFilter,
+    #typeFilter {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .table-container table,
+    main table {
+        min-width: 650px;
+    }
+
+    .import-page .upload-card {
+        padding: 14px;
+    }
+
+    .import-page .drop-zone {
+        min-height: 210px;
+        padding: 15px;
+    }
+
+    .import-page .upload-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .import-page .upload-actions button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .platform-badge {
+        max-width: 100%;
+    }
+
+    .breadcrumb {
+        gap: 6px;
+        font-size: 9px;
+    }
+
+    .import-page .topbar {
+        gap: 8px;
+    }
+}
